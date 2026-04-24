@@ -1,5 +1,6 @@
 package org.cms.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,5 +23,6 @@ public class City {
 
     @ManyToOne
     @JoinColumn(name = "country_id")
+    @JsonBackReference
     private Country country;
 }

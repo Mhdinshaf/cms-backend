@@ -1,5 +1,7 @@
 package org.cms.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,9 +28,11 @@ public class CustomerAddress {
 
     @ManyToOne
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonBackReference
     private Customer customer;
 
     @ManyToOne
     @JoinColumn(name = "city_id", nullable = false)
+    @JsonBackReference
     private City city;
 }

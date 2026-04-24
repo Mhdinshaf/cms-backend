@@ -1,5 +1,7 @@
 package org.cms.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -31,16 +33,20 @@ public class Customer {
     private String nic;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<CustomerMobile> mobileNumbers;
 
     @ManyToOne
     @JoinColumn(name = "parent_customer_id")
+    @JsonBackReference
     private Customer parentCustomer;
 
     @OneToMany(mappedBy = "parentCustomer", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Customer> familyMembers;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<CustomerAddress> addresses;
 
 

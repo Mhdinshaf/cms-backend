@@ -4,10 +4,12 @@ spring:
     username: root
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
-    jpa:
-        hibernate:
-            ddl-auto: update
-        show-sql: true
-    flyway:
-        enabled: true
-        baseline-on-migrate: true
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
