@@ -22,4 +22,7 @@ public class CustomerDTO {
     private LocalDate dob;
     private String nic;
     private List<String> mobileNumbers;
+
+    private List<CustomerDTO> familyMembers;
+    private List<AddressDto> addresses;
 }
