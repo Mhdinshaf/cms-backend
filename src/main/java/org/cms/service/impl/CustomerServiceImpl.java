@@ -10,6 +10,8 @@ import org.cms.repository.CountryRepository;
 import org.cms.repository.CustomerRepository;
 import org.cms.service.CustomerService;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,7 +30,14 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public Customer createCustomer(CustomerDTO customerDTO) {
+
+        Optional<Customer> existingCustomer = customerRepository.findByNic(customerDTO.getNic());
+
         Customer customerEntity = modelMapper.map(customerDTO, Customer.class);
+
+        if (existingCustomer.isPresent()) {
+            customerEntity.setId(existingCustomer.get().getId());
+        }
 
         if (customerDTO.getMobileNumbers() != null) {
             List<CustomerMobile> mobileList = new ArrayList<>();
@@ -81,5 +90,11 @@ public class CustomerServiceImpl implements CustomerService {
             customerEntity.setFamilyMembers(familyEntities);
         }
         return customerRepository.save(customerEntity);
+    }
+
+    @Override
+    public Customer updateCustomer(String Nic, CustomerDTO customerDTO) {
+        customerDTO.setNic(Nic);
+        return createCustomer(customerDTO);
     }
 }

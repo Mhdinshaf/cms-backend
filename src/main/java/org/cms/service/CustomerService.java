@@ -5,4 +5,6 @@ import org.cms.entity.Customer;
 
 public interface CustomerService {
     Customer createCustomer(CustomerDTO customerDTO);
+
+    Customer updateCustomer(String nic, CustomerDTO customerDTO);
 }

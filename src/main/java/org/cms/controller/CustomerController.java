@@ -6,10 +6,7 @@ import org.cms.entity.Customer;
 import org.cms.service.CustomerService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/customers")
@@ -23,5 +20,11 @@ public class CustomerController {
 
         Customer savedCustomer= customerService.createCustomer(customerDTO);
         return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/Update/{Nic}")
+    public ResponseEntity<Customer> updateCustomer(@PathVariable String Nic, @RequestBody CustomerDTO customerDTO) {
+        Customer updatedCustomer = customerService.updateCustomer(Nic, customerDTO);
+        return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 }
