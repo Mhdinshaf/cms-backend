@@ -5,8 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.apache.catalina.LifecycleState;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,4 +21,5 @@ public class CustomerDTO {
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate dob;
     private String nic;
+    private List<String> mobileNumbers;
 }
