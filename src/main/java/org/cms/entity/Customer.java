@@ -33,5 +33,15 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     private List<CustomerMobile> mobileNumbers;
 
+    @ManyToOne
+    @JoinColumn(name = "parent_customer_id")
+    private Customer parentCustomer;
+
+    @OneToMany(mappedBy = "parentCustomer", cascade = CascadeType.ALL)
+    private List<Customer> familyMembers;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+    private List<CustomerAddress> addresses;
+
 
 }
