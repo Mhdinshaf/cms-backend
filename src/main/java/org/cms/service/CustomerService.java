@@ -1,4 +1,8 @@
 package org.cms.service;
 
-public class CustomerService {
+import org.cms.dto.CustomerDTO;
+import org.cms.entity.Customer;
+
+public interface CustomerService {
+    Customer createCustomer(CustomerDTO customerDTO);
 }
