@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.cms.dto.CustomerDTO;
 import org.cms.entity.Customer;
 import org.cms.service.CustomerService;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,7 +18,6 @@ public class CustomerController {
 
     @PostMapping("/Add")
     public ResponseEntity<Customer> createCustomer(@RequestBody CustomerDTO customerDTO) {
-
         Customer savedCustomer= customerService.createCustomer(customerDTO);
         return new ResponseEntity<>(savedCustomer, HttpStatus.CREATED);
     }
@@ -26,5 +26,11 @@ public class CustomerController {
     public ResponseEntity<Customer> updateCustomer(@PathVariable String Nic, @RequestBody CustomerDTO customerDTO) {
         Customer updatedCustomer = customerService.updateCustomer(Nic, customerDTO);
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<CustomerDTO>> getAllCustomers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
+        Page<CustomerDTO> customers = customerService.getAllCustomers(page, size);
+        return new ResponseEntity<>(customers, HttpStatus.OK);
     }
 }

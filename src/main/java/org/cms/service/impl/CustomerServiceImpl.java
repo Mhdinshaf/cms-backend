@@ -10,13 +10,15 @@ import org.cms.repository.CountryRepository;
 import org.cms.repository.CustomerRepository;
 import org.cms.service.CustomerService;
 import org.modelmapper.ModelMapper;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -96,5 +98,23 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer updateCustomer(String Nic, CustomerDTO customerDTO) {
         customerDTO.setNic(Nic);
         return createCustomer(customerDTO);
+    }
+
+
+    @Override
+    public Page<CustomerDTO> getAllCustomers(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Customer> customerPage = customerRepository.findAll(pageable);
+
+        return customerPage.map(customer -> {
+            CustomerDTO dto = modelMapper.map(customer, CustomerDTO.class);
+            if (customer.getMobileNumbers() != null) {
+                List<String> realMobileNumbers = customer.getMobileNumbers().stream()
+                        .map(CustomerMobile::getMobileNumber)
+                        .collect(Collectors.toList());
+                dto.setMobileNumbers(realMobileNumbers);
+            }
+            return dto;
+        });
     }
 }
