@@ -13,3 +13,8 @@ spring:
   flyway:
     enabled: true
     baseline-on-migrate: true
+
+  batch:
+    job:
+      enabled: false
+    initialize-schema: always
