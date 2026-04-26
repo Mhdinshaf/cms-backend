@@ -20,6 +20,7 @@ import java.io.File;
 @RestController
 @RequestMapping("/api/v1/customers")
 @RequiredArgsConstructor
+@CrossOrigin
 public class CustomerController {
 
     @Autowired
@@ -42,7 +43,7 @@ public class CustomerController {
         return new ResponseEntity<>(updatedCustomer, HttpStatus.OK);
     }
 
-    @GetMapping
+    @GetMapping("/GetAll")
     public ResponseEntity<Page<CustomerDTO>> getAllCustomers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "10") int size) {
         Page<CustomerDTO> customers = customerService.getAllCustomers(page, size);
         return new ResponseEntity<>(customers, HttpStatus.OK);
