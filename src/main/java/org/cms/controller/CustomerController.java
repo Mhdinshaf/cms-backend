@@ -20,6 +20,7 @@ import java.io.File;
 @RestController
 @RequestMapping("/api/v1/customers")
 @RequiredArgsConstructor
+@CrossOrigin
 public class CustomerController {
 
     @Autowired
